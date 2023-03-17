@@ -16,3 +16,17 @@
         "ISBN": 78452615
     }
 ]
+
+[
+    {
+        "id": 101,
+        "libId": 23451,
+        "bookId": 2,
+        "bookTitle": "The Alchemist",
+        "borrowerName": "Nithish Kumar",
+        "issuerName": "Sandra",
+        "dateOfIssue": "21-08-2022",
+        "dateOfReturn": "29-08-2022",
+        "returnStatus": "Pending"
+    }
+]

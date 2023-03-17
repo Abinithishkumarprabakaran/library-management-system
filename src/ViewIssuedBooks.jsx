@@ -10,69 +10,65 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 
-export function ViewBooks() {
+export function ViewIssuedBooks() {
 
-  const [bookList, setBookList] = useState([])
+  const [issuedBookList, setIssuedBookList] = useState([])
 
   const navigate = useNavigate();
 
-  const getBooks = () => {
-    fetch("https://6414122350dff8e8fe44409b.mockapi.io/books")
+  const getIssuedBooks = () => {
+    fetch("https://6414122350dff8e8fe44409b.mockapi.io/issuedbooks")
       .then((data) => data.json())
-      .then((book) => setBookList(book))
+      .then((book) => setIssuedBookList(book))
   }
 
-  useEffect(() => getBooks(), [])
+  useEffect(() => getIssuedBooks(), [])
+
+  console.log(issuedBookList)
 
   return (
     <div>
-      <div className='addBooksBtn'>
-        <Button className='addbookbtn'
-          variant="contained"
-          sx={{ marginLeft: 'auto' }}
-          onClick={()=> navigate('/addbooks')}
-          >
-            Add Book
-        </Button>
-      </div>
-
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align='center'>Book Title</TableCell>
-              <TableCell align='center'>Author</TableCell>
-              <TableCell align='center'>ISBN</TableCell>
-              <TableCell align='center'>Language</TableCell>
-              <TableCell align='center'>Available Books</TableCell>
-              <TableCell align='center'>Issue / Delete</TableCell>
+              <TableCell align='center'>ID</TableCell>
+              <TableCell align='center'>Book ID</TableCell>
+              <TableCell align='center'>Title</TableCell>
+              <TableCell align='center'>Borrower Name</TableCell>
+              <TableCell align='center'>Issuer Name</TableCell>
+              <TableCell align='center'>Date of Issue</TableCell>
+              <TableCell align='center'>Date of Return</TableCell>
+              <TableCell align='center'>Return Status</TableCell>
+              <TableCell align='center'>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {bookList.map((book) => (
-              <TableRow
-                key={book.id}
+            {issuedBookList.map((book) => (
+              <TableRow key={book.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
+                <TableCell align='center'>{book.libId}</TableCell>
                 <TableCell component="th" scope="row" align='center'>
-                  {book.bookTitle}
+                  {book.bookId}
                 </TableCell>
-                <TableCell align='center'>{book.author}</TableCell>
-                <TableCell align='center'>{book.ISBN}</TableCell>
-                <TableCell align='center'>{book.language}</TableCell>
-                <TableCell align='center'>{book.booksAvailable}</TableCell>
+                <TableCell align='center'>{book.bookTitle}</TableCell>
+                <TableCell align='center'>{book.borrowerName}</TableCell>
+                <TableCell align='center'>{book.issuerName}</TableCell>
+                <TableCell align='center'>{book.dateOfIssue}</TableCell>
+                <TableCell align='center'>{book.dateOfReturn}</TableCell>
+                <TableCell align='center'>{book.returnStatus}</TableCell>
                 <TableCell align='center'>
                   <Button
                     variant="contained"
                     sx={{ marginRight: 1, marginTop: 1}}
-                    onClick={()=> navigate("/issuebooks")}
                     >
-                      Issue
+                      Edit
                   </Button>
                   <Button
                     variant="contained"
                     sx={{ marginRight: 1, marginTop: 1}}
-                    onClick={deleteBook}
+                    onClick={deleteIssuedBook}
                     >
                       Delete
                   </Button>
@@ -86,6 +82,7 @@ export function ViewBooks() {
   );
 }
 
-function deleteBook() {
+function deleteIssuedBook() {
   console.log("Delete button is pressed")
 }
+

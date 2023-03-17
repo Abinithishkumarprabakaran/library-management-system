@@ -6,6 +6,8 @@ import { Home } from './Home';
 import { NotFound } from './NotFound';
 import { Routes, Route } from 'react-router-dom';
 import { AddBooks } from './AddBooks';
+import { ViewIssuedBooks } from './ViewIssuedBooks';
+import { IssueBooks } from './IssueBooks';
 
 export const books = [
   {
@@ -35,6 +37,8 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/viewbooks' element={<ViewBooks />}/>
         <Route path='/addbooks' element={<AddBooks />}/>
+        <Route path='/viewissuedbooks' element={<ViewIssuedBooks />}/>
+        <Route path='/issuebooks' element={<IssueBooks />}/>
         <Route path='*' element={<NotFound />} />
       </Routes>
 
