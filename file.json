@@ -1,0 +1,18 @@
+[
+    {
+        "id": "1",
+        "bookTitle": "Atomic Habits",
+        "author": "James Clear",
+        "language": "English",
+        "booksAvailable": 10,
+        "ISBN": 89564256
+    },
+    {
+        "id": "2",
+        "bookTitle": "The Alchemist",
+        "author": "Paulo Coelho",
+        "language": "English",
+        "booksAvailable": 3,
+        "ISBN": 78452615
+    }
+]
