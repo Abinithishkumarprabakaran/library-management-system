@@ -64,7 +64,7 @@ function IssueBookForm({ book }){
         returnStatus: '' },
     validationSchema: formValidationSchema,
     onSubmit: (issuedBook) => {
-        console.log("Form Values", issuedBook)
+        // console.log("Form Values", issuedBook)
        issueBook(issuedBook)
        
     }

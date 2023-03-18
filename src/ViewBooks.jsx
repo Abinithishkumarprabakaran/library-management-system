@@ -24,6 +24,12 @@ export function ViewBooks() {
 
   useEffect(() => getBooks(), [])
 
+  const deleteBook = (id) => {
+
+    fetch(`https://6414122350dff8e8fe44409b.mockapi.io/books/${id}`, {method: "DELETE"})
+      .then(()=>getBooks());
+  }
+
   return (
     <div>
       <div className='addBooksBtn'>
@@ -72,7 +78,7 @@ export function ViewBooks() {
                   <Button
                     variant="contained"
                     sx={{ marginRight: 1, marginTop: 1}}
-                    onClick={deleteBook}
+                    onClick={()=>deleteBook(book.id)}
                     >
                       Delete
                   </Button>
