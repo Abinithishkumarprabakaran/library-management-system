@@ -4,10 +4,13 @@ import './App.css'
 import { ViewBooks } from './ViewBooks';
 import { Home } from './Home';
 import { NotFound } from './NotFound';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { AddBooks } from './AddBooks';
 import { ViewIssuedBooks } from './ViewIssuedBooks';
 import { IssueBooks } from './IssueBooks';
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
 
 export const books = [
   {
@@ -30,15 +33,25 @@ export const books = [
 
 function App() {
 
+  const navigate = useNavigate(); 
+
   return (
     <div className="App">
+
+      <AppBar position="static">
+        <Toolbar>
+          <Button onClick={() => navigate("/")} color="inherit" >Home</Button>
+          <Button onClick={() => navigate("/viewbooks")} color="inherit">Books</Button>
+          <Button onClick={() => navigate("/viewissuedbooks")} color="inherit">Issued Books</Button>
+        </Toolbar>
+			</AppBar>
 
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/viewbooks' element={<ViewBooks />}/>
         <Route path='/addbooks' element={<AddBooks />}/>
         <Route path='/viewissuedbooks' element={<ViewIssuedBooks />}/>
-        <Route path='/issuebooks' element={<IssueBooks />}/>
+        <Route path='/issuebooks/:id' element={<IssueBooks />}/>
         <Route path='*' element={<NotFound />} />
       </Routes>
 

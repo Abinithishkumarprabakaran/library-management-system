@@ -65,7 +65,7 @@ export function ViewBooks() {
                   <Button
                     variant="contained"
                     sx={{ marginRight: 1, marginTop: 1}}
-                    onClick={()=> navigate("/issuebooks")}
+                    onClick={()=> navigate(`/issuebooks/${book.id}`)}
                     >
                       Issue
                   </Button>

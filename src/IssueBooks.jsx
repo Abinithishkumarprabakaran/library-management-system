@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -34,11 +34,29 @@ const formValidationSchema = yup.object({
 
 export function IssueBooks() {
 
+  const { id } = useParams();
+
+  const [book, setBook] = useState(null)
+
+  const getBooks = () => {
+    fetch(`https://6414122350dff8e8fe44409b.mockapi.io/books/${id}`)
+      .then((data) => data.json())
+      .then((book) => setBook(book))
+  }
+
+  useEffect(() => getBooks(), [id])
+
+
+  return book ? <IssueBookForm book={book} /> : <h2>Loading...</h2>;
+}
+
+function IssueBookForm({ book }){
+
   const {handleSubmit,handleChange,handleBlur,values,errors,touched} = useFormik({
     initialValues: { 
         libId: '', 
-        bookId: '',
-        bookTitle: '',
+        bookId: `${book.id}`,
+        bookTitle: `${book.bookTitle}`,
         borrowerName: '',
         issuerName: '',
         dateOfIssue: '',
@@ -48,23 +66,23 @@ export function IssueBooks() {
     onSubmit: (issuedBook) => {
         console.log("Form Values", issuedBook)
        issueBook(issuedBook)
+       
     }
   });
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const issueBook = async (issuedBook) => {
+  const issueBook = async (issuedBook) => {
 
-    await fetch(`https://6414122350dff8e8fe44409b.mockapi.io/issuedbooks`, {
-        method: "POST",
-        body: JSON.stringify(issuedBook),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-
-    navigate("/viewissuedbooks")
-};
+      await fetch('https://6414122350dff8e8fe44409b.mockapi.io/issuedbooks', {
+          method: "POST",
+          body: JSON.stringify(issuedBook),
+          headers: {
+              "Content-Type": "application/json",
+          },
+      });
+      navigate("/viewissuedbooks")
+  };
   
   return (
     <form className="add-book-form" onSubmit={handleSubmit}>
@@ -78,7 +96,6 @@ const issueBook = async (issuedBook) => {
             error={errors.libId && touched.libId}
             helperText={errors.libId && touched.libId ? errors.libId: null}
             />
-
         <TextField
             name="bookId"
             onChange={handleChange}
@@ -156,3 +173,4 @@ const issueBook = async (issuedBook) => {
     </form>
     );
 }
+

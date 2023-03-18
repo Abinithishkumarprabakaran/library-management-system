@@ -1,8 +1,7 @@
 .addBooksBtn {
     display: flex;
     justify-content: end;
-    padding-bottom: 25px;
-    padding-right: 25px;
+    padding: 25px;
 }
 
 .home {

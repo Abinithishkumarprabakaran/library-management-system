@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 
 export function ViewIssuedBooks() {
@@ -24,7 +24,11 @@ export function ViewIssuedBooks() {
 
   useEffect(() => getIssuedBooks(), [])
 
-  console.log(issuedBookList)
+  const deleteIssuedBook = (id) => {
+
+    fetch(`https://6414122350dff8e8fe44409b.mockapi.io/issuedbooks/${id}`, {method: "DELETE"})
+      .then(()=>getIssuedBooks());
+  }
 
   return (
     <div>
@@ -68,7 +72,7 @@ export function ViewIssuedBooks() {
                   <Button
                     variant="contained"
                     sx={{ marginRight: 1, marginTop: 1}}
-                    onClick={deleteIssuedBook}
+                    onClick={()=>deleteIssuedBook(book.id)}
                     >
                       Delete
                   </Button>
@@ -80,9 +84,5 @@ export function ViewIssuedBooks() {
       </TableContainer>
     </div>
   );
-}
-
-function deleteIssuedBook() {
-  console.log("Delete button is pressed")
 }
 
